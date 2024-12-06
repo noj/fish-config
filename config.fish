@@ -33,11 +33,11 @@ bind --user -M normal \cr history-pager
 
 # This prompt will look something like this:
 #
-# [I] jon@owl:~/s/g/n/monkey.odin (main)
+# [I] owl:~/s/g/n/monkey.odin (main)
 # >
 #
 function fish_prompt -d "Write out the prompt"
-    printf '%s%s@%s%s:%s%s%s%s%s%s\n> ' (set_color bryellow) $USER (prompt_hostname) (set_color normal) \
+    printf '%s%s%s:%s%s%s%s%s%s\n> ' (set_color bryellow) (prompt_hostname) (set_color normal) \
         (set_color $fish_color_cwd) (prompt_pwd) (set_color normal) \
         (set_color brmagenta) (fish_git_prompt) (set_color normal)
 end
