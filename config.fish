@@ -1,5 +1,4 @@
-if status is-interactive
-end
+# My fish shell config
 
 abbr vim nvim
 abbr ll ls -l
