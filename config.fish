@@ -8,6 +8,9 @@ abbr cdg cd ~/work/sim/go
 abbr cda cd ~/work/ansible
 abbr k kubecolor
 
+abbr cat bat -p
+set -g BAT_THEME ansi
+
 fish_add_path -g /opt/homebrew/bin
 
 # Key bindings
