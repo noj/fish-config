@@ -7,19 +7,18 @@ abbr cds cd ~/work/sim
 abbr cdg cd ~/work/sim/go
 abbr cda cd ~/work/ansible
 abbr k kubecolor
-
-
 abbr cat bat -p
-set -x BAT_THEME ansi
 
+set -x BAT_THEME ansi
 set -x EDITOR nvim
 set -x VISUAL nvim
 
 fish_add_path -g /opt/homebrew/bin
+fish_add_path -g /opt/homebrew/opt/ruby/bin
 fish_add_path -g ~/bin
 fish_add_path -g ~/.cargo/bin
 
-# Key bindings
+# VI Key bindings
 set -g fish_key_bindings fish_vi_key_bindings
 
 bind --user -M insert \ck kill-line
@@ -40,15 +39,21 @@ bind --user -M normal \cn down-or-search
 bind --user -M insert \cr history-pager
 bind --user -M normal \cr history-pager
 
+# FZF setup
+if type -q fzf
+  fzf --fish | source
+end
+
 # This prompt will look something like this:
 #
 # [I] owl:~/s/g/n/monkey.odin (main)
 # >
 #
 function fish_prompt -d "Write out the prompt"
-    printf '%s%s%s:%s%s%s%s%s%s\n> ' (set_color bryellow) (prompt_hostname) (set_color normal) \
-        (set_color $fish_color_cwd) (prompt_pwd) (set_color normal) \
-        (set_color brmagenta) (fish_git_prompt) (set_color normal)
+    printf '%s%s%s:%s%s%s%s%s%s\n> ' (set_color bryellow) (prompt_hostname) \
+        (set_color normal) \ (set_color $fish_color_cwd) (prompt_pwd) \
+        (set_color normal) (set_color brmagenta) (fish_git_prompt) \
+        (set_color normal)
 end
 
 # Yubikey SSH agent
