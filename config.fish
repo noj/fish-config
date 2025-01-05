@@ -1,15 +1,12 @@
-# My fish shell config
+# My fish shell config, VI keybindings is the deal
 
-abbr vim nvim
 abbr ll ls -l
 abbr la ls -a
 abbr cds cd ~/work/sim
 abbr cdg cd ~/work/sim/go
 abbr cda cd ~/work/ansible
-abbr k kubecolor
-abbr cat bat -p
 
-set -x BAT_THEME ansi
+abbr vim nvim
 set -x EDITOR nvim
 set -x VISUAL nvim
 
@@ -17,6 +14,22 @@ fish_add_path -g /opt/homebrew/bin
 fish_add_path -g /opt/homebrew/opt/ruby/bin
 fish_add_path -g ~/bin
 fish_add_path -g ~/.cargo/bin
+
+if type -q kubecolor
+    abbr k kubecolor
+else if type -q kubectl
+    abbr k kubctl
+end
+
+if type -q bat
+    abbr cat bat -p
+    set -x BAT_THEME ansi
+end
+
+# FZF setup
+if type -q fzf
+  fzf --fish | source
+end
 
 # VI Key bindings
 set -g fish_key_bindings fish_vi_key_bindings
@@ -39,11 +52,6 @@ bind --user -M normal \cn down-or-search
 bind --user -M insert \cr history-pager
 bind --user -M normal \cr history-pager
 
-# FZF setup
-if type -q fzf
-  fzf --fish | source
-end
-
 # This prompt will look something like this:
 #
 # [I] owl:~/s/g/n/monkey.odin (main)
@@ -58,7 +66,7 @@ end
 
 # Yubikey SSH agent
 function ssha_yk
-  set -x SSH_AUTH_SOCK SSH_AUTH_SOCK_LOCAL
+  set -x SSH_AUTH_SOCK $SSH_AUTH_SOCK_LOCAL
 end
 
 # Secretive SSH agent
