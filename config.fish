@@ -13,6 +13,7 @@ set -x VISUAL nvim
 fish_add_path -g /opt/homebrew/bin
 fish_add_path -g /opt/homebrew/opt/ruby/bin
 fish_add_path -g ~/bin
+fish_add_path -g ~/go/bin
 fish_add_path -g ~/.cargo/bin
 
 if type -q kubecolor
@@ -28,7 +29,15 @@ end
 
 # FZF setup
 if type -q fzf
-  fzf --fish | source
+    fzf --fish | source
+
+    # catpuccin https://github.com/catppuccin/fzf:
+    set -Ux FZF_DEFAULT_OPTS "\
+        --color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
+        --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
+        --color=marker:#b7bdf8,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796 \
+        --color=selected-bg:#494d64 \
+        --multi"
 end
 
 # VI Key bindings
