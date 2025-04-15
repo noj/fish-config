@@ -27,19 +27,6 @@ if type -q bat
     set -x BAT_THEME ansi
 end
 
-# FZF setup
-if type -q fzf
-    fzf --fish | source
-
-    # catpuccin https://github.com/catppuccin/fzf:
-    set -Ux FZF_DEFAULT_OPTS "\
-        --color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
-        --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
-        --color=marker:#b7bdf8,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796 \
-        --color=selected-bg:#494d64 \
-        --multi"
-end
-
 # VI Key bindings
 set -g fish_key_bindings fish_vi_key_bindings
 
@@ -61,15 +48,35 @@ bind --user -M normal \cn down-or-search
 bind --user -M insert \cr history-pager
 bind --user -M normal \cr history-pager
 
+# FZF setup
+if type -q fzf
+    fzf --fish | source
+
+    # catppuccin https://github.com/catppuccin/fzf:
+    set -Ux FZF_DEFAULT_OPTS "\
+        --color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
+        --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
+        --color=marker:#b7bdf8,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796 \
+        --color=selected-bg:#494d64 \
+        --multi"
+end
+
+
 # This prompt will look something like this:
 #
 # [I] owl:~/s/g/n/monkey.odin (main)
 # >
 #
 function fish_prompt -d "Write out the prompt"
-    printf '%s%s%s:%s%s%s%s%s%s\n> ' (set_color bryellow) (prompt_hostname) \
-        (set_color normal) \ (set_color $fish_color_cwd) (prompt_pwd) \
-        (set_color normal) (set_color brmagenta) (fish_git_prompt) \
+    printf '%s%s%s:%s%s%s%s%s%s\n> ' \
+        (set_color bryellow) \
+        (prompt_hostname) \
+        (set_color normal) \
+        (set_color $fish_color_cwd) \
+        (prompt_pwd) \
+        (set_color normal) \
+        (set_color brmagenta) \
+        (fish_git_prompt) \
         (set_color normal)
 end
 
