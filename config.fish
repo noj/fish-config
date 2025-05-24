@@ -7,14 +7,19 @@ abbr cdg cd ~/work/sim/go
 abbr cda cd ~/work/ansible
 
 abbr vim nvim
+abbr uvn uv run nvim
+
 set -x EDITOR nvim
 set -x VISUAL nvim
+set -x GOROOT /usr/local/go
 
+fish_add_path -g /usr/local/go/bin
 fish_add_path -g /opt/homebrew/bin
 fish_add_path -g /opt/homebrew/opt/ruby/bin
 fish_add_path -g ~/bin
 fish_add_path -g ~/go/bin
 fish_add_path -g ~/.cargo/bin
+fish_add_path -g /usr/local/zig-linux-x86_64-0.13.0
 
 if type -q kubecolor
     abbr k kubecolor
@@ -22,9 +27,26 @@ else if type -q kubectl
     abbr k kubctl
 end
 
-if type -q bat
-    abbr cat bat -p
+if type -q batcat
+    abbr cat batcat -p
     set -x BAT_THEME ansi
+end
+
+# FZF setup
+if type -q fzf
+  fzf --fish | source
+
+  # Open git grep result in nvim
+  function ggv
+    set -l query $argv[1]
+    set -l selection (git grep -n $query | fzf --reverse)
+
+    if test -n "$selection"
+      set -l file (echo $selection | cut -d: -f1)
+      set -l line (echo $selection | cut -d: -f2)
+      nvim +$line $file
+    end
+  end
 end
 
 # VI Key bindings
@@ -66,7 +88,6 @@ end
 #
 # [I] owl:~/s/g/n/monkey.odin (main)
 # >
-#
 function fish_prompt -d "Write out the prompt"
     printf '%s%s%s:%s%s%s%s%s%s\n> ' \
         (set_color bryellow) \
