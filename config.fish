@@ -29,7 +29,7 @@ end
 
 if type -q batcat
     abbr cat batcat -p
-    set -x BAT_THEME ansi
+    set -x BAT_THEME zenburn
 end
 
 # FZF setup
@@ -74,13 +74,12 @@ bind --user -M normal \cr history-pager
 if type -q fzf
     fzf --fish | source
 
-    # catppuccin https://github.com/catppuccin/fzf:
+    # vesper
     set -Ux FZF_DEFAULT_OPTS "\
-        --color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
-        --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
-        --color=marker:#b7bdf8,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796 \
-        --color=selected-bg:#494d64 \
-        --multi"
+    --color=fg:#fefefe,bg:#101010,hl:#ffc799
+    --color=fg+:#d0d0d0,bg+:#232323,hl+:#99ffe4
+    --color=info:#afaf87,prompt:#ff8080,pointer:#99ffe4
+    --color=marker:#87ff00,spinner:#ffcfa8,header:#65737e"
 end
 
 
